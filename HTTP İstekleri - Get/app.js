@@ -23,11 +23,36 @@ class Request {
                 .catch(err => reject(err));
         })
     }
+
+    put(url, data) {
+        return new Promise((resolve, reject) => {
+            fetch(url, {
+                method: 'PUT',
+                body: JSON.stringify(data),
+                headers: {
+                    'Content-type': 'application/json; charset=UTF-8',
+                },
+            })
+                .then(response => response.json())
+                .then(data => resolve(data))
+                .catch(err => reject(err));
+        })
+    }
+
+    delete(url) {
+        return new Promise((resolve, reject) => {
+            fetch('https://jsonplaceholder.typicode.com/albums/1', {
+                method: 'DELETE',
+            })
+            .then(response => resolve("Veri Silme Başarılı"))
+            .catch(err => reject(err));
+        })
+    }
 }
 
 const request = new Request();
 
-
+//get
 // let albums;
 // request.get("https://jsonplaceholder.typicode.com/albums")
 // .then(albums => {
@@ -37,6 +62,17 @@ const request = new Request();
 
 // console.log(albums); // Asenkron
 
-request.post("https://jsonplaceholder.typicode.com/albums", { userId: 1, title: "Thriller" })
-    .then(newAlbum => console.log(newAlbum))
-    .catch(err => console.log(err));
+//post
+// request.post("https://jsonplaceholder.typicode.com/albums", { userId: 1, title: "Thriller" })
+//     .then(newAlbum => console.log(newAlbum))
+//     .catch(err => console.log(err));
+
+//put
+// request.put("https://jsonplaceholder.typicode.com/albums/1", { userId: 10, title: "Tarkan Karma" })
+// .then(newAlbums => console.log(newAlbums))
+// .catch(err => console.log(err));
+
+// delete
+request.delete("https://jsonplaceholder.typicode.com/albums/1")
+.then(message => console.log(message))
+.catch(err => console.log(err));
